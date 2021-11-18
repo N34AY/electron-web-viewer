@@ -1,22 +1,33 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const { app, BrowserWindow } = require('electron')
 const path = require('path')
 
-function createWindow () {
+require('dotenv').config()
+
+
+async function createWindow() {
+  // const appName = app.getName()
+  // const logPath = `C:/ProgramData/GRG/${appName}/logs/main.log`
+  // if (await !fs.existsSync(logPath)) await fs.writeFileSync(logPath)
+  // log.transports.file.resolvePath = () => logPath
+
+  // console.log('ffsdf');
+  // console.error('sdfsd');
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1600,
+    height: 1200,
+    autoHideMenuBar: true,
+    fullscreen: true,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: true
     }
   })
 
   // and load the index.html of the app.
-  mainWindow.loadFile('index.html')
-
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  // mainWindow.loadFile('index.html')
+  mainWindow.loadURL('http://localhost:8080/')
 }
 
 // This method will be called when Electron has finished
