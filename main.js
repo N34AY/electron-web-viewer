@@ -1,45 +1,23 @@
-// Modules to control application life and create native browser window
 const { app, BrowserWindow } = require('electron')
-const path = require('path')
-
-require('dotenv').config()
 
 
-async function createWindow() {
-  // const appName = app.getName()
-  // const logPath = `C:/ProgramData/GRG/${appName}/logs/main.log`
-  // if (await !fs.existsSync(logPath)) await fs.writeFileSync(logPath)
-  // log.transports.file.resolvePath = () => logPath
+const createAllwindows = require('./src/windows/createAll')
 
-  // console.log('ffsdf');
-  // console.error('sdfsd');
-  // Create the browser window.
-  const mainWindow = new BrowserWindow({
-    width: 1600,
-    height: 1200,
-    autoHideMenuBar: true,
-    fullscreen: true,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: true
-    }
-  })
+const startArgs = process.argv
+console.log(startArgs)
 
-  // and load the index.html of the app.
-  // mainWindow.loadFile('index.html')
-  mainWindow.loadURL('http://localhost:8080/')
-}
+app.commandLine.appendSwitch ("disable-http-cache")
+app.commandLine.appendSwitch ("--disk-cache-size=0")
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(() => {
-  createWindow()
+app.whenReady().then(async () => {
+  await createAllwindows()
 
   app.on('activate', function () {
-    // On macOS it's common to re-create a window in the app when the
-    // dock icon is clicked and there are no other windows open.
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    if (BrowserWindow.getAllWindows().length === 0) createAllwindows()
   })
 })
 

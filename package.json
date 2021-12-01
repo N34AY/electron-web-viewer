@@ -1,7 +1,7 @@
 {
   "name": "terminal-ui",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "Electron application for terminal UI",
   "license": "MIT",
   "main": "main.js",
   "scripts": {
@@ -13,15 +13,24 @@
     "electron-builder": "^22.13.1"
   },
   "dependencies": {
-    "dotenv": "^10.0.0",
-    "electron-log": "^4.4.1"
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.5"
   },
   "build": {
     "appId": "com.arbitas.app",
-    "productName": "Terminal UI",
-    "target": "NSIS",
+    "productName": "Terminal-UI",
+    "icon": "resources/icon.png",
+    "win": {
+      "target": [
+        "portable"
+      ]
+    },
+    "portable": {
+      "artifactName": "terminal-ui-portable.exe"
+    },
     "directories": {
-      "output": "build"
+      "output": "build",
+      "buildResources": "resources"
     },
     "nsis": {
       "allowToChangeInstallationDirectory": false,
