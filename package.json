@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Electron application for terminal UI",
   "license": "MIT",
+  "author": "Arbitas",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
